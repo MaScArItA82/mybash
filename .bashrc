@@ -438,7 +438,7 @@ install_bashrc_support() {
 			sudo apt-get install /tmp/fastfetch_latest_amd64.deb
 			;;
 		"arch")
-			sudo paru multitail tree zoxide trash-cli fzf bash-completion fastfetch
+			paru -S multitail tree zoxide trash-cli fzf bash-completion fastfetch
 			;;
 		"slackware")
 			echo "No install support for Slackware"

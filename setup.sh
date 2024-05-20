@@ -11,7 +11,7 @@ command_exists() {
 
 checkEnv() {
     ## Check for requirements.
-    REQUIREMENTS='curl groups sudo'
+    REQUIREMENTS='curl groups sudo lsb-release'
     if ! command_exists ${REQUIREMENTS}; then
         echo -e "${RED}To run me, you need: ${REQUIREMENTS}${RC}"
         exit 1
@@ -55,9 +55,9 @@ checkEnv() {
 
 }
 
-installDepend() {
+installDependenciesParm(){
     ## Check for dependencies.
-    DEPENDENCIES='bash bash-completion tar neovim bat tree multitail fastfetch'
+    DEPENDENCIES=$1
     echo -e "${YELLOW}Installing dependencies...${RC}"
     if [[ $PACKAGER == "pacman" ]]; then
         if ! command_exists yay && ! command_exists paru; then
@@ -80,6 +80,14 @@ installDepend() {
     else
         sudo ${PACKAGER} install -yq ${DEPENDENCIES}
     fi
+
+}
+
+
+installDepend() {
+    ## Check for dependencies.
+    DEPENDENCIES='bash bash-completion tar neovim bat tree multitail fastfetch '
+    installDependenciesParm ${DEPENDENCIES}
 }
 
 installStarship() {
@@ -113,8 +121,7 @@ installZoxide() {
 }
 
 install_additional_dependencies() {
-   sudo apt update
-   sudo apt install -y trash-cli bat meld jpico
+   installDependenciesParm 'trash-cli bat meld jpico'
 }
 
 linkConfig() {
